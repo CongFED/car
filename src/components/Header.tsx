@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import logo from "@/assets/logo.png";
 const navItems = [
   { name: "Trang Chủ", href: "#home" },
   { name: "Giới Thiệu", href: "#about" },
@@ -41,19 +41,20 @@ const Header = () => {
       <nav className="container-custom mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#home");
-            }}
-            className="flex items-center space-x-2"
-          >
-            <span className="text-2xl md:text-3xl font-bold">
-              <span className="text-gradient">Auto</span>
-              <span className="text-foreground">Pro</span>
-            </span>
-          </a>
+        <a
+  href="#home"
+  onClick={(e) => {
+    e.preventDefault();
+    scrollToSection("#home");
+  }}
+  className="flex items-center space-x-2 shrink-0"
+>
+  <img
+    src={logo}
+    alt="car auto"
+    className="block h-14 mt-3  w-auto md:h-20 object-contain"
+  />
+</a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -74,9 +75,9 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="tel:+84123456789" className="flex items-center space-x-2 text-primary">
+            <a href="tel:+84975416999" className="flex items-center space-x-2 text-primary">
               <Phone size={18} />
-              <span className="font-semibold">0123 456 789</span>
+              <span className="font-semibold">0975 416 999</span>
             </a>
             <Button
               className="btn-gold"
@@ -114,9 +115,9 @@ const Header = () => {
                 </a>
               ))}
               <div className="px-6 py-4 border-t border-border mt-2">
-                <a href="tel:+84123456789" className="flex items-center space-x-2 text-primary mb-4">
+                <a href="tel:+84975416999" className="flex items-center space-x-2 text-primary mb-4">
                   <Phone size={18} />
-                  <span className="font-semibold">0123 456 789</span>
+                  <span className="font-semibold">0975 416 999</span>
                 </a>
                 <Button
                   className="btn-gold w-full"

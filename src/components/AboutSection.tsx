@@ -26,7 +26,7 @@ const AboutSection = () => {
             </div>
             {/* Floating Card */}
             <div className="absolute -bottom-6 -right-6 md:right-8 bg-card p-6 rounded-xl shadow-xl border border-border max-w-[200px]">
-              <div className="text-4xl font-bold text-gradient mb-2">10+</div>
+              <div className="text-4xl font-bold text-gradient mb-2">5+</div>
               <p className="text-muted-foreground text-sm">Năm kinh nghiệm trong ngành</p>
             </div>
           </div>
@@ -40,8 +40,8 @@ const AboutSection = () => {
               Đam Mê Với <span className="text-gradient">Từng Chi Tiết</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              AutoPro Detailing là trung tâm chăm sóc và độ xe hàng đầu, chuyên cung cấp 
-              các dịch vụ chăm sóc xe chuyên nghiệp. Với hơn 10 năm kinh nghiệm, chúng tôi 
+              Hiếu Thảo Auto là trung tâm chăm sóc và độ xe hàng đầu, chuyên cung cấp 
+              các dịch vụ chăm sóc xe chuyên nghiệp. Với hơn 5 năm kinh nghiệm, chúng tôi 
               cam kết mang đến cho khách hàng sự hài lòng tuyệt đối.
             </p>
 

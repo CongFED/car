@@ -4,33 +4,44 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "Điện Thoại",
-    content: "0123 456 789",
-    href: "tel:+84123456789",
+    content: "0975 416 999",
+    href: "tel:+84975416999",
   },
   {
     icon: Mail,
     title: "Email",
-    content: "info@autopro.vn",
-    href: "mailto:info@autopro.vn",
+    content: "hieuduong8181@gmail.com",
+    href: "mailto:hieuduong8181@gmail.com",
   },
   {
     icon: MapPin,
     title: "Địa Chỉ",
-    content: "123 Nguyễn Văn Linh, Quận 7, TP.HCM",
-    href: "https://maps.google.com",
+    content: "90 Nguyễn Mân, Nhơn Bình, Quy Nhơn, Bình Định",
+    href: "https://www.google.com/maps/place/Hi%E1%BA%BFu+Th%E1%BA%A3o+Auto/@13.7944349,109.2058583,1003m/data=!3m2!1e3!4b1!4m6!3m5!1s0x316f6b2aff823577:0x5dd25346c13120b7!8m2!3d13.7944349!4d109.2058583!16s%2Fg%2F11ytcyl0ng!18m1!1e1?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D",
   },
   {
     icon: Clock,
     title: "Giờ Làm Việc",
-    content: "T2 - T7: 8:00 - 18:00",
+    content: "T2 - CN: 7:30 - 18:00",
     href: null,
   },
 ];
+
+const serviceMap: Record<string, string> = {
+  wash: "Rửa Xe Cao Cấp",
+  polish: "Đánh Bóng Sơn",
+  ceramic: "Phủ Ceramic",
+  ppf: "Dán PPF",
+  interior: "Vệ Sinh Nội Thất",
+  lights: "Độ Đèn & Phụ Kiện",
+  other: "Khác",
+};
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -43,28 +54,6 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast({
-      title: "Gửi thành công!",
-      description: "Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.",
-    });
-
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      service: "",
-      message: "",
-    });
-    setIsSubmitting(false);
-  };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -74,11 +63,114 @@ const ContactSection = () => {
     }));
   };
 
+  // ✅ Helper: validate phone quickly
+  const isValidPhone = (phone: string) => {
+    const clean = phone.replace(/\s/g, "");
+    return /^0\d{9,10}$/.test(clean); // VN common
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Validate cơ bản
+      if (!formData.name.trim() || !formData.phone.trim()) {
+        toast({
+          title: "Thiếu thông tin",
+          description: "Vui lòng điền Họ tên và Số điện thoại.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!isValidPhone(formData.phone)) {
+        toast({
+          title: "Số điện thoại chưa đúng",
+          description: "Vui lòng nhập đúng định dạng số điện thoại Việt Nam.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // ✅ EmailJS config từ ENV
+      const serviceId = "service_jhvfv1c";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const templateAdmin = import.meta.env.VITE_EMAILJS_TEMPLATE_ADMIN;
+      const templateCustomer = import.meta.env.VITE_EMAILJS_TEMPLATE_CUSTOMER;
+      const receiverEmail = import.meta.env.VITE_RECEIVER_EMAIL;
+
+      // ✅ Data gửi đi cho template
+      const templateParams = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email || "Không cung cấp",
+        service: formData.service || "Không chọn",
+        service_name: serviceMap[formData.service] || "Chưa chọn dịch vụ",
+        message: formData.message || "Không có nội dung",
+        to_email: receiverEmail, // admin nhận
+        reply_to: formData.email || "", // để admin reply dễ
+      };
+
+      // ✅ 1) Gửi mail về tiệm
+      await  emailjs.send(
+        "service_jhvfv1c",
+        "template_tbx3kv7",
+        
+      {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email || "Không cung cấp",
+        service: formData.service || "Không chọn",
+        service_name: serviceMap[formData.service] || "Chưa chọn dịch vụ",
+        message: formData.message || "Không có nội dung",
+        to_email: receiverEmail, // admin nhận
+        reply_to: formData.email || "", // để admin reply dễ
+      },
+        "yidF4_VmJa118K5t_"
+      );
+
+      // ✅ 2) (Optional) nếu khách có email thì gửi auto reply
+      if (formData.email && formData.email.includes("@")) {
+        const customerParams = {
+          ...templateParams,
+          to_email: formData.email, // khách nhận
+        };
+        await emailjs.send( "service_jhvfv1c",
+        "template_tbx3kv7", customerParams,  "yidF4_VmJa118K5t_");
+      }
+
+      toast({
+        title: "Gửi thành công!",
+        description: "Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.",
+      });
+
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast({
+        title: "Gửi thất bại!",
+        description: "Có lỗi xảy ra khi gửi. Vui lòng thử lại hoặc gọi hotline.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding">
       <div className="container-custom mx-auto">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-[700px] mx-auto mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
             Liên Hệ Với Chúng Tôi
           </span>
@@ -106,14 +198,16 @@ const ContactSection = () => {
                       {item.href ? (
                         <a
                           href={item.href}
-                          className="text-muted-foreground hover:text-primary transition-colors"
+                          className="text-muted-foreground hover:text-primary transition-colors text-[14px]"
                           target={item.href.startsWith("http") ? "_blank" : undefined}
                           rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         >
                           {item.content}
                         </a>
                       ) : (
-                        <span className="text-muted-foreground">{item.content}</span>
+                        <span className="text-muted-foreground text-[14px]">
+                          {item.content}
+                        </span>
                       )}
                     </div>
                   </div>
@@ -124,14 +218,14 @@ const ContactSection = () => {
             {/* Google Maps */}
             <div className="rounded-xl overflow-hidden h-[300px] lg:h-[350px] border border-border">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.0245795396!2d106.69976931533218!3d10.729756992338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f9023a3a85f%3A0x9259bad475336d5!2zMTIzIMSQLiBOZ3V54buFbiBWxINuIExpbmgsIFTDom4gUGjDuiwgUXXhuq1uIDcsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1625000000000!5m2!1svi!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4369.174955242231!2d109.20585829999999!3d13.794434899999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6b2aff823577%3A0x5dd25346c13120b7!2zSGnhur91IFRo4bqjbyBBdXRv!5e1!3m2!1svi!2s!4v1767325420975!5m2!1svi!2s"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="AutoPro Detailing Location"
+                title="Hiếu Thảo Auto Location"
               />
             </div>
           </div>
@@ -139,6 +233,7 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="card-glass p-6 md:p-8">
             <h3 className="text-2xl font-bold mb-6">Gửi Yêu Cầu Tư Vấn</h3>
+
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -165,7 +260,7 @@ const ContactSection = () => {
                     name="phone"
                     type="tel"
                     required
-                    placeholder="0123 456 789"
+                    placeholder="0975 416 999"
                     value={formData.phone}
                     onChange={handleChange}
                     className="bg-secondary/50 border-border"
@@ -181,7 +276,7 @@ const ContactSection = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder="hieuduong8181@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
                   className="bg-secondary/50 border-border"
@@ -192,22 +287,35 @@ const ContactSection = () => {
                 <label htmlFor="service" className="block text-sm font-medium mb-2">
                   Dịch Vụ Quan Tâm
                 </label>
-                <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className="w-full h-10 px-3 rounded-md bg-secondary/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Chọn dịch vụ</option>
-                  <option value="wash">Rửa Xe Cao Cấp</option>
-                  <option value="polish">Đánh Bóng Sơn</option>
-                  <option value="ceramic">Phủ Ceramic</option>
-                  <option value="ppf">Dán PPF</option>
-                  <option value="interior">Vệ Sinh Nội Thất</option>
-                  <option value="lights">Độ Đèn & Phụ Kiện</option>
-                  <option value="other">Khác</option>
-                </select>
+               <select
+  id="service"
+  name="service"
+  value={formData.service}
+  onChange={handleChange}
+  className="w-full h-10 px-3 rounded-md bg-secondary/50 border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+>
+  <option value="">Chọn dịch vụ</option>
+
+  <option value="rua-xe">Rửa xe</option>
+  <option value="danh-bong-hieu-chinh-son">Đánh bóng hiệu chỉnh bề mặt sơn</option>
+  <option value="ve-sinh-noi-that">Vệ sinh nội thất</option>
+  <option value="danh-bong-kinh">Đánh bóng kính</option>
+  <option value="han-kinh-o-to">Hàn kính ô tô</option>
+  <option value="do-den-tang-sang">Độ đèn tăng sáng</option>
+  <option value="lap-dat-do-choi">Lắp đặt đồ chơi</option>
+  <option value="dan-phim-cach-nhiet">Dán phim cách nhiệt</option>
+  <option value="dan-ppf-noi-that-ngoai-that">Dán PPF nội thất ngoại thất</option>
+  <option value="boc-ghe-da">Bọc ghế da</option>
+  <option value="man-hinh-android">Màn hình Android</option>
+  <option value="cam-360">Cam 360</option>
+  <option value="guong-gap-chinh-dien">Gương gập chỉnh điện</option>
+  <option value="phu-ceramic">Phủ Ceramic</option>
+  <option value="phu-gam-xe">Phủ gầm xe</option>
+  <option value="dan-decal-doi-mau-son-xe">Dán decal đổi màu sơn xe</option>
+  <option value="do-body-kit">Độ body kit</option>
+  <option value="bao-duong-dau-nhot-phu-gia">Dịch vụ bảo dưỡng dầu nhớt phụ gia</option>
+</select>
+
               </div>
 
               <div>
@@ -225,12 +333,7 @@ const ContactSection = () => {
                 />
               </div>
 
-              <Button
-                type="submit"
-                size="lg"
-                className="btn-gold w-full"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" size="lg" className="btn-gold w-full" disabled={isSubmitting}>
                 {isSubmitting ? (
                   "Đang gửi..."
                 ) : (
@@ -241,6 +344,10 @@ const ContactSection = () => {
                 )}
               </Button>
             </form>
+
+            <p className="text-xs text-muted-foreground mt-4">
+              * Thông tin của bạn sẽ được bảo mật và chỉ dùng để liên hệ tư vấn.
+            </p>
           </div>
         </div>
       </div>

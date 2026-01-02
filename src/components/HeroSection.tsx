@@ -4,7 +4,7 @@ import heroCar from "@/assets/hero-car.jpg";
 
 const stats = [
   { icon: Star, value: "500+", label: "Khách Hàng" },
-  { icon: Shield, value: "10+", label: "Năm Kinh Nghiệm" },
+  { icon: Shield, value: "5+", label: "Năm Kinh Nghiệm" },
   { icon: Clock, value: "24/7", label: "Hỗ Trợ" },
 ];
 
@@ -42,14 +42,14 @@ const HeroSection = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            Chăm Sóc Xe{" "}
+            Chăm Sóc Xe{" "}   <br />
             <span className="text-gradient">Đẳng Cấp</span>
             <br />
             Nâng Tầm Phong Cách
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            AutoPro Detailing mang đến dịch vụ chăm sóc và độ xe cao cấp. 
+            Hiếu Thảo Auto mang đến dịch vụ chăm sóc và độ xe cao cấp. 
             Từ rửa xe, đánh bóng, phủ ceramic đến dán PPF và độ đèn - 
             chúng tôi biến chiếc xe của bạn trở nên hoàn hảo.
           </p>

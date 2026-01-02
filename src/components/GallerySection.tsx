@@ -23,12 +23,12 @@ const GallerySection = () => {
     <section id="gallery" className="section-padding bg-secondary/30">
       <div className="container-custom mx-auto">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-[690px] mx-auto mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
             Thư Viện Hình Ảnh
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 mb-4">
-            Công Trình <span className="text-gradient">Tiêu Biểu</span>
+           Dự Án <span className="text-gradient">Nổi bật</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Những chiếc xe được chăm sóc và độ bởi đội ngũ chuyên gia của chúng tôi

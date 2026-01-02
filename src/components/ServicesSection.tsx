@@ -25,6 +25,7 @@ import phuGam from "@/assets/services/phu_gam_xe.webp";
 import danDecal from "@/assets/services/dan_decal.webp";
 import bodyKit from "@/assets/services/do_body_kit.webp";
 import baoDuong from "@/assets/services/bao_duong_dau_nhot.webp";
+import phimcn from "@/assets/services/phim_cach_nhiet.jpg";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 export const services = [
   {
@@ -80,7 +81,7 @@ export const services = [
     title: "Dán phim cách nhiệt",
     description:
       "Dán phim cách nhiệt cao cấp giúp chống nóng, giảm chói, bảo vệ nội thất và tăng sự riêng tư khi sử dụng xe.",
-    image: danPhim,
+    image: phimcn,
     price: "Liên hệ",
   },
   {

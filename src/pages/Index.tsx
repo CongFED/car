@@ -5,6 +5,7 @@ import ServicesSection from "@/components/ServicesSection";
 import GallerySection from "@/components/GallerySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import FloatingChat from "@/components/ui/FloatingChat";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <FloatingChat />
     </div>
   );
 };

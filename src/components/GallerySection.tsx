@@ -1,23 +1,42 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import gallery1 from "@/assets/gallery-1.jpg";
+import gallery1 from "@/assets/leus.png";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import gallery4 from "@/assets/vf5.png";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 
 const galleryItems = [
-  { image: gallery1, title: "Ferrari 488 - Ceramic Coating", category: "Phủ Ceramic" },
-  { image: gallery2, title: "Mercedes AMG - Full Detailing", category: "Chăm Sóc Toàn Diện" },
-  { image: gallery3, title: "BMW M4 - Paint Correction", category: "Đánh Bóng" },
-  { image: gallery4, title: "Lamborghini Huracan - PPF", category: "Dán PPF" },
+  {
+    image: gallery1,
+    title: "Lexus GS F - Ceramic Coating",
+    category: "Phủ Ceramic",
+  },
+  {
+    image: gallery2,
+    title: "Mercedes AMG - Full Detailing",
+    category: "Chăm Sóc Toàn Diện",
+  },
+  {
+    image: gallery3,
+    title: "BMW M4 - Paint Correction",
+    category: "Đánh Bóng",
+  },
+  { image: gallery4, title: "VF5 - Decal", category: "Dán Decal" },
   { image: gallery5, title: "Audi RS7 - Chrome Delete", category: "Độ Xe" },
-  { image: gallery6, title: "McLaren 720S - Full Protection", category: "Bảo Vệ Toàn Diện" },
+  {
+    image: gallery6,
+    title: "McLaren 720S - Full Protection",
+    category: "Bảo Vệ Toàn Diện",
+  },
 ];
 
 const GallerySection = () => {
-  const [selectedImage, setSelectedImage] = useState<{ image: string; title: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    image: string;
+    title: string;
+  } | null>(null);
 
   return (
     <section id="gallery" className="section-padding bg-secondary/30">
@@ -28,10 +47,11 @@ const GallerySection = () => {
             Thư Viện Hình Ảnh
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 mb-4">
-           Dự Án <span className="text-gradient">Nổi bật</span>
+            Dự Án <span className="text-gradient">Nổi bật</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Những chiếc xe được chăm sóc và độ bởi đội ngũ chuyên gia của chúng tôi
+            Những chiếc xe được chăm sóc và độ bởi đội ngũ chuyên gia của chúng
+            tôi
           </p>
         </div>
 

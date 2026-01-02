@@ -25,9 +25,11 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
             </div>
             {/* Floating Card */}
-            <div className="absolute -bottom-6 -right-6 md:right-8 bg-card p-6 rounded-xl shadow-xl border border-border max-w-[200px]">
+            <div className="absolute -bottom-6 -right-2 md:-right-2 lg:-right-6 bg-card p-6 rounded-xl shadow-xl border border-border max-w-[200px]">
               <div className="text-4xl font-bold text-gradient mb-2">5+</div>
-              <p className="text-muted-foreground text-sm">Năm kinh nghiệm trong ngành</p>
+              <p className="text-muted-foreground text-sm">
+                Năm kinh nghiệm trong ngành
+              </p>
             </div>
           </div>
 
@@ -40,9 +42,10 @@ const AboutSection = () => {
               Đam Mê Với <span className="text-gradient">Từng Chi Tiết</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Hiếu Thảo Auto là trung tâm chăm sóc và độ xe hàng đầu, chuyên cung cấp 
-              các dịch vụ chăm sóc xe chuyên nghiệp. Với hơn 5 năm kinh nghiệm, chúng tôi 
-              cam kết mang đến cho khách hàng sự hài lòng tuyệt đối.
+              Hiếu Thảo Auto là trung tâm chăm sóc và độ xe hàng đầu, chuyên
+              cung cấp các dịch vụ chăm sóc xe chuyên nghiệp. Với hơn 5 năm kinh
+              nghiệm, chúng tôi cam kết mang đến cho khách hàng sự hài lòng
+              tuyệt đối.
             </p>
 
             <ul className="space-y-4 mb-8">
@@ -56,7 +59,7 @@ const AboutSection = () => {
 
             <div className="flex items-center gap-8">
               <div>
-                <div className="text-3xl font-bold text-gradient">5000+</div>
+                <div className="text-3xl font-bold text-gradient">1000+</div>
                 <p className="text-muted-foreground">Xe đã phục vụ</p>
               </div>
               <div className="w-px h-12 bg-border" />

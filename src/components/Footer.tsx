@@ -1,4 +1,11 @@
-import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 import logo from "@/assets/logo.png";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,17 +16,17 @@ const Footer = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-const TikTokIcon = ({ className = "w-5 h-5" }) => (
-  <svg
-    className={className}
-    viewBox="0 0 48 48"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <path d="M33.5 8c1.7 3.1 4.2 5.5 7.5 6.4V20c-3.5-.1-6.7-1.3-9.5-3.4v15.2c0 7.1-5.8 12.2-12.8 12.2S6 39 6 31.9c0-7.1 5.8-12.9 12.9-12.9.7 0 1.4.1 2.1.2v6.2c-.7-.2-1.4-.3-2.1-.3-3.6 0-6.5 2.9-6.5 6.5s2.9 6.5 6.5 6.5c3.6 0 6.9-2.7 6.9-7.2V8h7.6Z" />
-  </svg>
-);
+  const TikTokIcon = ({ className = "w-5 h-5" }) => (
+    <svg
+      className={className}
+      viewBox="0 0 48 48"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M33.5 8c1.7 3.1 4.2 5.5 7.5 6.4V20c-3.5-.1-6.7-1.3-9.5-3.4v15.2c0 7.1-5.8 12.2-12.8 12.2S6 39 6 31.9c0-7.1 5.8-12.9 12.9-12.9.7 0 1.4.1 2.1.2v6.2c-.7-.2-1.4-.3-2.1-.3-3.6 0-6.5 2.9-6.5 6.5s2.9 6.5 6.5 6.5c3.6 0 6.9-2.7 6.9-7.2V8h7.6Z" />
+    </svg>
+  );
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-custom mx-auto px-4 md:px-8 py-12 md:py-16">
@@ -27,10 +34,11 @@ const TikTokIcon = ({ className = "w-5 h-5" }) => (
           {/* Brand */}
           <div className="lg:col-span-1">
             <a href="#home" className="inline-block mb-4">
-               <img src={logo} alt="car auto" width={150} height={150}/>
+              <img src={logo} alt="car auto" width={150} height={150} />
             </a>
             <p className="text-muted-foreground mb-6">
-              Dịch vụ chăm sóc và độ xe chuyên nghiệp hàng đầu. Mang đến sự hoàn hảo cho chiếc xe của bạn.
+              Dịch vụ chăm sóc và độ xe chuyên nghiệp hàng đầu. Mang đến sự hoàn
+              hảo cho chiếc xe của bạn.
             </p>
             <div className="flex gap-4">
               <a
@@ -134,7 +142,7 @@ const TikTokIcon = ({ className = "w-5 h-5" }) => (
                   href="tel:+84975416999"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-0975 416 999
+                  0975 416 999
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -143,7 +151,7 @@ const TikTokIcon = ({ className = "w-5 h-5" }) => (
                   href="mailto:hieuduong8181@gmail.com"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                 hieuduong8181@gmail.com
+                  hieuduong8181@gmail.com
                 </a>
               </li>
             </ul>
@@ -153,7 +161,7 @@ const TikTokIcon = ({ className = "w-5 h-5" }) => (
         {/* Copyright */}
         <div className="border-t border-border mt-12 pt-8 text-center">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} Hiếu Thảo Auto. All rights reserved.
+            © {currentYear} HieuThaoAuto. All rights reserved.
           </p>
         </div>
       </div>

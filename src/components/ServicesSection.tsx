@@ -1,57 +1,179 @@
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import { useState } from "react";
 import serviceCeramic from "@/assets/service-ceramic.jpg";
 import serviceInterior from "@/assets/service-interior.jpg";
 import servicePolish from "@/assets/service-polish.jpg";
 import servicePpf from "@/assets/service-ppf.jpg";
 import serviceLights from "@/assets/service-lights.jpg";
 import serviceWash from "@/assets/service-wash.jpg";
-
-const services = [
+import ruaXe from "@/assets/services/rua_xe_cao_cap.webp";
+import danhBong from "@/assets/services/danh_bong.webp";
+import veSinhNoiThat from "@/assets/services/ve_sinh_noi_that.webp";
+import danhBongKinh from "@/assets/services/ve_sinh_kinh.webp";
+import hanKinh from "@/assets/services/han_kinh_o_to.webp";
+import doDen from "@/assets/services/do_den_tang_sang.webp";
+import lapDoChoi from "@/assets/services/lap_dat_do_choi.webp";
+import danPhim from "@/assets/services/dan_phim_cach_nhiet.webp";
+import ppf from "@/assets/services/dan_PPF_ngoai_that.webp";
+import bocGheDa from "@/assets/services/boc_ghe_da.webp";
+import manHinhAndroid from "@/assets/services/man_hinh_android.webp";
+import cam360 from "@/assets/services/camera_360.webp";
+import guongGap from "@/assets/services/guong_gap_chinh_dien.webp";
+import phuCeramic from "@/assets/services/phu_ceramic.webp";
+import phuGam from "@/assets/services/phu_gam_xe.webp";
+import danDecal from "@/assets/services/dan_decal.webp";
+import bodyKit from "@/assets/services/do_body_kit.webp";
+import baoDuong from "@/assets/services/bao_duong_dau_nhot.webp";
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+export const services = [
   {
-    title: "Rửa Xe Cao Cấp",
-    description: "Rửa xe theo quy trình 5 bước, sử dụng hóa chất chuyên dụng an toàn cho sơn xe.",
-    image: serviceWash,
-    price: "Từ 150.000đ",
+    title: "Rửa xe cao cấp",
+    description:
+      "Rửa xe chuẩn detailing, làm sạch ngoại thất, lazang, hốc bánh và các khe kẽ, kết hợp dung dịch chuyên dụng an toàn cho sơn.",
+    image: ruaXe,
+    price: "Liên hệ",
   },
   {
-    title: "Đánh Bóng Sơn",
-    description: "Khử xước, phục hồi độ bóng cho sơn xe. Sử dụng máy đánh bóng chuyên nghiệp.",
-    image: servicePolish,
-    price: "Từ 1.500.000đ",
+    title: "Đánh bóng – hiệu chỉnh bề mặt sơn",
+    description:
+      "Xử lý xước nhẹ, vết swirl, oxy hóa sơn; phục hồi độ bóng sâu và trả lại bề mặt sơn mịn đẹp như mới.",
+    image: danhBong,
+    price: "Liên hệ",
+  },
+  {
+    title: "Vệ sinh nội thất",
+    description:
+      "Làm sạch sâu toàn bộ nội thất, ghế da/nỉ, trần xe, thảm sàn; khử mùi, diệt khuẩn, mang lại không gian sạch sẽ.",
+    image: veSinhNoiThat,
+    price: "Liên hệ",
+  },
+  {
+    title: "Đánh bóng kính",
+    description:
+      "Loại bỏ ố mốc, vết mờ, cặn nước trên kính lái và kính xe; cải thiện tầm nhìn và độ trong suốt khi lái xe.",
+    image: danhBongKinh,
+    price: "Liên hệ",
+  },
+  {
+    title: "Hàn kính ô tô",
+    description:
+      "Xử lý nứt, mẻ kính lái kịp thời, chống lan vết rạn, đảm bảo an toàn và tiết kiệm chi phí thay kính.",
+    image: hanKinh,
+    price: "Liên hệ",
+  },
+  {
+    title: "Độ đèn tăng sáng",
+    description:
+      "Nâng cấp hệ thống chiếu sáng với ánh sáng mạnh, đều và đúng chuẩn; tăng khả năng quan sát ban đêm, lái xe an toàn hơn.",
+    image: doDen,
+    price: "Liên hệ",
+  },
+  {
+    title: "Lắp đặt đồ chơi – phụ kiện",
+    description:
+      "Lắp đặt phụ kiện theo xe như camera, cảm biến, tiện ích thông minh; nâng cao trải nghiệm và thẩm mỹ.",
+    image: lapDoChoi,
+    price: "Liên hệ",
+  },
+  {
+    title: "Dán phim cách nhiệt",
+    description:
+      "Dán phim cách nhiệt cao cấp giúp chống nóng, giảm chói, bảo vệ nội thất và tăng sự riêng tư khi sử dụng xe.",
+    image: danPhim,
+    price: "Liên hệ",
+  },
+  {
+    title: "Dán PPF nội thất – ngoại thất",
+    description:
+      "Dán phim PPF bảo vệ sơn và chi tiết nội thất, chống trầy xước, tự phục hồi xước nhẹ và giữ xe luôn như mới.",
+    image: ppf,
+    price: "Liên hệ",
+  },
+  {
+    title: "Bọc ghế da",
+    description:
+      "Bọc ghế da cao cấp, may đo theo form xe, tăng sự sang trọng, êm ái và dễ dàng vệ sinh.",
+    image: bocGheDa,
+    price: "Liên hệ",
+  },
+  {
+    title: "Màn hình Android",
+    description:
+      "Nâng cấp màn hình Android giải trí đa phương tiện, hỗ trợ dẫn đường, camera, Apple CarPlay và Android Auto.",
+    image: manHinhAndroid,
+    price: "Liên hệ",
+  },
+  {
+    title: "Camera 360",
+    description:
+      "Hệ thống camera 360 quan sát toàn cảnh xung quanh xe, hỗ trợ đỗ xe, giảm điểm mù và tăng độ an toàn.",
+    image: cam360,
+    price: "Liên hệ",
+  },
+  {
+    title: "Gương gập chỉnh điện",
+    description:
+      "Gương gập/mở tự động theo khóa xe, tiện lợi khi đỗ xe và giúp bảo vệ gương khỏi va chạm.",
+    image: guongGap,
+    price: "Liên hệ",
   },
   {
     title: "Phủ Ceramic",
-    description: "Lớp phủ bảo vệ sơn xe cao cấp, chống trầy xước, chống UV, độ bền 2-5 năm.",
-    image: serviceCeramic,
-    price: "Từ 5.000.000đ",
+    description:
+      "Phủ Ceramic bảo vệ bề mặt sơn, tăng độ bóng, chống bám bẩn, hạn chế trầy xước nhẹ và bảo vệ lâu dài.",
+    image: phuCeramic,
+    price: "Liên hệ",
   },
   {
-    title: "Dán PPF",
-    description: "Phim bảo vệ sơn xe PPF cao cấp, tự phục hồi xước nhẹ, bảo vệ toàn diện.",
-    image: servicePpf,
-    price: "Từ 15.000.000đ",
+    title: "Phủ gầm xe",
+    description:
+      "Phủ gầm chống rỉ sét, giảm ồn, bảo vệ gầm xe khỏi đá văng, nước và hóa chất ăn mòn.",
+    image: phuGam,
+    price: "Liên hệ",
   },
   {
-    title: "Vệ Sinh Nội Thất",
-    description: "Làm sạch sâu nội thất, vệ sinh ghế da, thảm sàn, khử mùi, diệt khuẩn.",
-    image: serviceInterior,
-    price: "Từ 800.000đ",
+    title: "Dán decal đổi màu sơn xe",
+    description:
+      "Dán decal đổi màu theo phong cách cá nhân, bảo vệ lớp sơn zin và dễ dàng tháo đổi khi cần.",
+    image: danDecal,
+    price: "Liên hệ",
   },
   {
-    title: "Độ Đèn & Phụ Kiện",
-    description: "Nâng cấp đèn LED, bi LED, angel eyes. Lắp đặt phụ kiện xe chất lượng cao.",
-    image: serviceLights,
+    title: "Độ body kit",
+    description:
+      "Lắp đặt body kit chuẩn form xe, nâng cấp ngoại hình thể thao, mạnh mẽ và cá tính hơn.",
+    image: bodyKit,
+    price: "Liên hệ",
+  },
+  {
+    title: "Bảo dưỡng dầu nhớt – phụ gia",
+    description:
+      "Thay dầu nhớt định kỳ, vệ sinh động cơ và bổ sung phụ gia giúp động cơ vận hành êm ái và bền bỉ.",
+    image: baoDuong,
     price: "Liên hệ",
   },
 ];
-
+const ITEMS_PER_PAGE = 6;
 const ServicesSection = () => {
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, services.length));
+  };
+
+  const handleCollapse = () => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  };
+
+  const isAllVisible = visibleCount >= services.length;
 
   return (
     <section id="services" className="section-padding">
@@ -71,7 +193,7 @@ const ServicesSection = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
+          {services.slice(0, visibleCount).map((service, index) => (
             <article
               key={index}
               className="group card-glass overflow-hidden hover-lift cursor-pointer"
@@ -82,6 +204,7 @@ const ServicesSection = () => {
                 <img
                   src={service.image}
                   alt={`Dịch vụ ${service.title} tại AutoPro Detailing`}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
@@ -97,13 +220,36 @@ const ServicesSection = () => {
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <p className="text-muted-foreground mb-4">
+                  {service.description}
+                </p>
                 <span className="inline-flex items-center text-primary font-semibold group-hover:gap-3 transition-all">
                   Tìm hiểu thêm <ArrowRight className="ml-2 w-4 h-4" />
                 </span>
               </div>
             </article>
           ))}
+        </div>
+
+        {/* Load More / Collapse */}
+        <div className="flex justify-center mt-12">
+          {!isAllVisible ? (
+            <button
+              onClick={handleLoadMore}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:opacity-90 transition"
+            >
+              Xem thêm dịch vụ
+              <ChevronDown className="w-5 h-5" />
+            </button>
+          ) : (
+            <button
+              onClick={handleCollapse}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-semibold hover:bg-muted transition"
+            >
+              Ẩn bớt dịch vụ
+              <ChevronUp className="w-5 h-5" />
+            </button>
+          )}
         </div>
       </div>
     </section>
